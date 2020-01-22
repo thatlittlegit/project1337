@@ -14,16 +14,20 @@ ATOM RegisterWindowClass(HINSTANCE);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 int ShowMainWindow(_In_ HINSTANCE, _In_ int nCmdShow);
 
+TCHAR* sequence;
+
 int WINAPI _tWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
 {
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 	InitCommonControls();
 
-	if (ShowInitialDialog(hInstance, nCmdShow) != IDOK) {
-		return 1;
-	}
+	SIDret* diagret = ShowInitialDialog(hInstance, nCmdShow);
 
+	if (diagret->value != IDOK)
+		return 1;
+
+	sequence = diagret->sequence;
 	return ShowMainWindow(hInstance, nCmdShow);
 }
 
@@ -73,8 +77,6 @@ ATOM RegisterWindowClass(HINSTANCE hInstance)
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	static int almost = 0;
-
 	switch (message) {
 	case WM_CREATE:
 	case WM_KILLFOCUS:
@@ -86,19 +88,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
-	case WM_CHAR:
-		if (wParam == 'z')
-			almost = 1;
-		else if (wParam == 'p' && almost == 1)
-			almost = 2;
-		else if (wParam == '`' && almost == 2)
-			ExitProcess(0);
+	case WM_CHAR: {
+		static int almost = 0;
+		if (wParam == sequence[almost])
+			almost++;
 		else
 			almost = 0;
+
+		if (almost == _tcslen(sequence))
+			ExitProcess(0);
 		break;
+	}
+	case WM_CLOSE:
 	case WM_NCCALCSIZE:
 	case WM_PAINT:
-	case WM_CLOSE:
 		break;
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);

@@ -1,0 +1,70 @@
+#include "resource.h"
+#include <winres.h>
+
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+
+VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+ FILEFLAGS 0x0L
+ FILEOS 0x40000L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+	BLOCK "StringFileInfo"
+	BEGIN
+		BLOCK "000004b0"
+		BEGIN
+			VALUE "FileDescription", "Project1337"
+			VALUE "FileVersion", "1.0.0.1"
+			VALUE "InternalName", "Project1337.exe"
+			VALUE "LegalCopyright", "Copyright (C) 2020 thatlittlegit."
+			VALUE "OriginalFilename", "Project1337.exe"
+			VALUE "ProductName", "Project1337"
+			VALUE "ProductVersion", "1.0.0.1"
+		END
+	END
+	BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation", 0x0, 1200
+	END
+END
+
+IDD_DIALOG1 DIALOGEX 0, 0, 179, 101
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Project1337"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+	PUSHBUTTON      "Start",IDOK,67,80,50,14
+	DEFPUSHBUTTON   "Close",IDCLOSE,122,80,50,14
+	EDITTEXT        IDC_TEXT,7,7,165,63,ES_MULTILINE | ES_AUTOVSCROLL | ES_READONLY | NOT WS_BORDER | WS_VSCROLL
+END
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+	IDD_DIALOG1, DIALOG
+	BEGIN
+		LEFTMARGIN, 7
+		RIGHTMARGIN, 172
+		TOPMARGIN, 7
+		BOTTOMMARGIN, 94
+	END
+END
+#endif
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON                    "Project1337.ico"
+
+STRINGTABLE
+BEGIN
+	IDS_INTRO "Project1337 is a tool that will block your screen with black. To allow the computer to be used again, press Z, P and ` (backtick) in that order. Making a mistake will cause you to have to try again.\r\n\r\nProject1337 is to be used for educational, etc. purposes only, and shall NOT be used to commit crimes or overall do evil. thatlittlegit cannot be held responsible as the developer of this software if such issues occur."
+END
+
+LANGUAGE LANG_FRENCH, SUBLANG_NEUTRAL
+STRINGTABLE
+BEGIN
+	IDS_INTRO "Project1337 est un outil qui interdira votre écran avec noir. Si vous voudrais le restaurer, poussez Z, P et ` (backquote) dans cette ordre. Si vous faisiez un erreur, vous devriez essayer encore.\r\n\r\nOn devez utiliser Projet1337 pour des raisons du education, etc., et on devez l'utiliser pour seul cette raisons. Ne l'utilisez pas pour des crimes ou mal! On ne peut pas accuser thatlittlegit comme le programmeur de cette logiciel.\r\n\r\n(Lisez le édition anglais, s'il vous plaît.)"
+END
